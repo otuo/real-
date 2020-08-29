@@ -7,7 +7,7 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World Test'
-		sh 'ls'
+		sh 'ls -al'
             }
         }
         stage(gitcheckout) {
