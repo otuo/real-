@@ -12,7 +12,7 @@ pipeline {
         }
         stage(gitcheckout) {
             steps {
-                echo 'gitcheckout new'
+                echo 'gitcheckout'
             }
         }
     }
