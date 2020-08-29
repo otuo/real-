@@ -12,7 +12,7 @@ pipeline {
         }
         stage(gitcheckout) {
             steps {
-                echo 'gitcheckout'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/otuo/real-.git']]])
             }
         }
     }
