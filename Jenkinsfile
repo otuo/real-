@@ -7,7 +7,7 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World Test'
-		sh 'cd /'
+		sh 'mkdir test'
 		sh 'ls -al'
             }
         }
