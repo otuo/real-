@@ -7,8 +7,8 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World Test'
-		sh 'mkdir test'
-		sh 'ls -al'
+		sh 'mkdir Devops'
+		sh 'cat /etc/os-release'
             }
         }
 	stage ('Test') {
