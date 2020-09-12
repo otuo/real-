@@ -18,21 +18,9 @@ pipeline {
         stage('Deploy') {
 		steps {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
-	        sshPublisherDesc(
-                                sshCredentials: [
-                                    usernameVariable: "$uname",
-                                    passwordVariable: "$upass"
-                                ], 
-                                transfers: [
-                                    sshTransfer(
-                                        sourceFiles: '~/team',
-                                        remoteDirectory: '/tmp',
-                                        execCommand: 'ls -al'
-                                    )
-                                ]
-                            )
-		      }
+	        ssh -p $upass $uname@ec2-34-216-195-161.us-west-2.compute.amazonaws.com
 	      }
 	}
     }
+  }
 }
