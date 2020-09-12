@@ -18,7 +18,8 @@ pipeline {
         stage('Deploy') {
 		steps {
                 
-	        sh 'ssh ec2-user@ec2-34-216-195-161.us-west-2.compute.amazonaws.com'
+	        sh 'ssh -i ~/.ssh/jenkins-new.pem ec2-user@ec2-34-216-195-161.us-west-2.compute.amazonaws.com'
+		sh 'la -al'
 	      
 	}
     }
