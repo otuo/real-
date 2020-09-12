@@ -20,8 +20,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
 	        sshPublisherDesc(
                                 sshCredentials: [
-                                    username: "$uname",
-                                    encryptedPassphrase: "$upass"
+                                    usernameVariable: "$uname",
+                                    passwordVariable: "$upass"
                                 ], 
                                 transfers: [
                                     sshTransfer(
