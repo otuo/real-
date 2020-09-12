@@ -15,15 +15,18 @@ pipeline {
 	    sh 'touch file.txt'
 	   }
 	}     
-        stage('DeployToProduction') {
+        stage('Deploy') {
             when {
                 branch 'master'
             }
 		steps {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
-                sh 'scp -r ~/team $uname@ec2-34-216-195-161.us-west-2.compute.amazonaws.com:~/'
+                sh 'scp -r ~/team centos@ec2-34-216-195-161.us-west-2.compute.amazonaws.com:~/'
+	        sshCredentials: [
+                                    username: "$uname",
+                                    encryptedPassphrase: "$upass"
+                                ]
                 }
 	    }
 	  }
-	}
-}
+    }
