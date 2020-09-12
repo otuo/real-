@@ -21,13 +21,17 @@ pipeline {
             }
 		steps {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
-                sh 'scp -r ~/team centos@ec2-34-216-195-161.us-west-2.compute.amazonaws.com:~/'
 	        sshCredentials: [
                                     username: "$uname",
                                     encryptedPassphrase: "$upass"
-                                ]
+                                ],
+			transfers: [
+                                    sshTransfer(
+                                        sourceFiles: '~/team',
+                                        remoteDirectory: '/tmp'
+					    )
+				]
                 }
 	    }
 	  }
-      }
-}
+    }
