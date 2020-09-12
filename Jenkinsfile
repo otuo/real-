@@ -21,17 +21,20 @@ pipeline {
             }
 		steps {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
-	        sshCredentials: [
+	        sshPublisherDesc(
+                                sshCredentials: [
                                     username: "$uname",
                                     encryptedPassphrase: "$upass"
-                                ],
-			transfers: [
+                                ], 
+                                transfers: [
                                     sshTransfer(
                                         sourceFiles: '~/team',
-                                        remoteDirectory: '/tmp'
-					    )
-				]
-                }
-	    }
-	  }
+                                        remoteDirectory: '/tmp',
+                                        execCommand: 'ls -al'
+                                    )
+                                ]
+                            )
+		      }
+	      }
+	}
     }
