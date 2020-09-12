@@ -16,10 +16,32 @@ pipeline {
 	    sh 'touch file.txt'
 	   }
 	}
-        stage(gitcheckout) {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/otuo/real-.git']]])
+        stage('DeployToStaging') {
+            when {
+                branch 'master'
             }
-        }
-    }
-}
+            
+        stage('DeployToProduction') {
+            when {
+                branch 'master'
+            }
+            steps {
+                input 'Does the staging environment look OK?'
+                milestone(1)
+                withCredentials([sshUserPrivateKey(credentialsId: 'new-ssh', keyFileVariable: 'test', passphraseVariable: 'password', usernameVariable: 'username')]) {
+			sh 'ls -al'
+		}                 
+		   {
+                      sshPublisher(
+                        failOnError: true,
+                        continueOnError: false,
+                        publishers: [
+                            sshPublisherDesc(
+                                sshCredentials: [
+                                    username: "$USERNAME"
+					]
+                               )
+                           ]
+	             )
+		   }
+	    }
