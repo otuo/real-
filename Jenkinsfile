@@ -15,12 +15,7 @@ pipeline {
 	  steps {
 	    sh 'touch file.txt'
 	   }
-	}
-        stage('DeployToStaging') {
-            when {
-                branch 'master'
-            }
-            
+	}     
         stage('DeployToProduction') {
             when {
                 branch 'master'
@@ -28,20 +23,9 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                withCredentials([sshUserPrivateKey(credentialsId: 'new-ssh', keyFileVariable: 'test', passphraseVariable: 'password', usernameVariable: 'username')]) {
-			sh 'ls -al'
-		}                 
-		   {
-                      sshPublisher(
-                        failOnError: true,
-                        continueOnError: false,
-                        publishers: [
-                            sshPublisherDesc(
-                                sshCredentials: [
-                                    username: "$USERNAME"
-					]
-                               )
-                           ]
-	             )
-		   }
+                withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
+                sh 'scp -r ~/team $uname@ec2-34-216-195-161.us-west-2.compute.amazonaws.com:~/'
+                }
 	    }
+	  }
+	}
