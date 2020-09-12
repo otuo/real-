@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
 		steps {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
-	        ssh centos@ec2-34-216-195-161.us-west-2.compute.amazonaws.com
+	        sh 'ssh centos@ec2-34-216-195-161.us-west-2.compute.amazonaws.com'
 	      }
 	}
     }
