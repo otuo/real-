@@ -16,9 +16,6 @@ pipeline {
 	   }
 	}     
         stage('Deploy') {
-            when {
-                branch 'master'
-            }
 		steps {
                 withCredentials([usernamePassword(credentialsId: 'user-centos', passwordVariable: 'upass', usernameVariable: 'uname')]) {
 	        sshPublisherDesc(
