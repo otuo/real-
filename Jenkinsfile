@@ -1,6 +1,6 @@
 pipeline {
     agent {
-          label 'master'
+          label 'slave123'
 	  }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
 		steps {
                 
-	        sh 'ssh -i ~/.ssh/jenkins-new.pem ec2-user@ec2-34-216-195-161.us-west-2.compute.amazonaws.com'
+	        sh 'ssh ec2-user@ec2-18-236-239-105.us-west-2.compute.amazonaws.com'
 		sh 'la -al'
 	      
 	}
